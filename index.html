@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="https://res.cloudinary.com/dirms5hch/raw/upload/v1684808050/figma-plugin/css-library/create-color-style_ij0q3r.css">
+
+<!--html section-->
+<div class="main-content">
+  <p class="text-md reguler" style="color: #7E7E7E;">To create an automated color style, choose a frame instead of an object with color.</p>
+  <div class="inputArea">
+    <input style="width: 100%;" type="text" id="groupName" oninput="updateTextValue()" placeholder="Group name" value="primary"/>
+    <div class="inputArea-col-2">
+      <input style="width: 100%;" type="number" id="startNumber" oninput="updateStartNumberValue(), updateMinusNumberValue()" placeholder="StartNumber" value="900"/>
+      <input style="width: 40%;" type="number" id="minNumber" oninput="updateMinusNumberValue()" placeholder="minNumber" value="100"/>
+    </div>
+    <div class="inputArea-output">
+      <p class="text-md reguler">></p>
+      <p class="text-md reguler" style="color:#7E7E7E">
+        <span id="textValue1">primary</span>/<span id="textValue3">900</span>, 
+        <span id="textValue2">primary</span>/<span id="textValue4">800</span>, 
+        dst
+      </p>
+    </div>
+  </div>
+  <button id="createStylesButton">Create</button>
+  <p class="text-sm reguler" style="color: #7E7E7E;">Version 1.0.2 © Mesin Merayap, 2023</p>
+
+</div>
+  
+<!--pengirim pesan-->
+<script>
+  document.getElementById('createStylesButton').addEventListener('click', () => {
+    const groupName = document.getElementById('groupName').value;
+    const startNumber = parseInt(document.getElementById('startNumber').value);
+    const minNumber = parseInt(document.getElementById('minNumber').value);
+    parent.postMessage({ pluginMessage: { type: 'createStyles', groupName, startNumber, minNumber}}, '*');
+  });
+
+  function updateTextValue() {
+    var input = document.getElementById("groupName");
+    var textValue1 = document.getElementById("textValue1");
+    var textValue2 = document.getElementById("textValue2");
+    textValue1.textContent = input.value;
+    textValue2.textContent = input.value;
+  }
+
+  function updateStartNumberValue() {
+    var inputStartNumber = document.getElementById("startNumber");
+    var textValue3 = document.getElementById("textValue3");
+    textValue3.textContent = inputStartNumber.value;
+  }
+
+  function updateMinusNumberValue() {
+    var inputStartNumber = document.getElementById("startNumber");
+    var inputMinusNumber = document.getElementById("minNumber");
+    var textValue4 = document.getElementById("textValue4");
+
+    var start = inputMinusNumber.value - inputStartNumber.value;
+    var minus = inputStartNumber.value - inputMinusNumber.value;
+
+    var resultToShow = minus;
+    
+      if (inputMinusNumber.value > inputStartNumber.value) {
+        resultToShow = start;
+      }
+
+      textValue4.textContent = resultToShow;
+  }
+</script>
