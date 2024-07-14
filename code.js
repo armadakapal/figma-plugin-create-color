@@ -5,13 +5,13 @@ figma.ui.onmessage = (msg) => {
     if (msg.type === 'createStyles') {
         const selectedFrame = figma.currentPage.selection[0];
         if (!selectedFrame) {
-            figma.notify('Pilihen salah siji frame asu raimu');
+            figma.notify('Select a frame');
             figma.closePlugin();
             return;
         }
         const components = selectedFrame.findAll();
         if (components.length === 0) {
-            figma.notify('Isien kotak ta opo ngunu seng ono wernoe asu 🖕');
+            figma.notify('Select the object');
             figma.closePlugin();
             return;
         }
